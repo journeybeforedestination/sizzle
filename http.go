@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+	"text/template"
 
 	"github.com/gorilla/mux"
 )
@@ -22,6 +22,6 @@ func NewHTTPServer(addr string) *http.Server {
 }
 
 func (s *server) handleRoot(w http.ResponseWriter, r *http.Request) {
-	msg := fmt.Sprintf("PATH: %s", r.URL.Path)
-	w.Write([]byte(msg))
+	t, _ := template.ParseFiles("tmpl/home.html")
+	t.Execute(w, nil)
 }
