@@ -6,13 +6,19 @@ import (
 	"text/template"
 
 	"github.com/gorilla/mux"
+	"github.com/journeybeforedestination/sizzle/pan"
 )
 
-type server struct{}
+type server struct {
+	pan pan.Pan
+}
 
 // NewHTTPServer creates an http server
 func NewHTTPServer(addr string) *http.Server {
-	s := &server{}
+	s := &server{
+		pan: pan.Pan{},
+	}
+	s.pan.TurnItOn()
 	r := mux.NewRouter()
 
 	// setup handlers
@@ -44,5 +50,5 @@ func logRequestHandler(h http.Handler) http.Handler {
 // handleRoot handles the root path "/"
 func (s *server) handleRoot(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("tmpl/home.html")
-	t.Execute(w, nil)
+	t.Execute(w, s.pan.Sizzles)
 }

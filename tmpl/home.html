@@ -8,7 +8,12 @@
   </head>
   <body>
     <main>
-        <h1>Home</h1>  
+        <h1>What is cooking?</h1>  
+        <ul>
+          {{range .}}
+            <li>{{.}}</li>
+          {{end}}
+        </ul>
     </main>
   </body>
 </html>
