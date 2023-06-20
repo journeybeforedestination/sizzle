@@ -25,6 +25,7 @@ func NewHTTPServer(addr string) *http.Server {
 
 	// setup handlers
 	r.HandleFunc("/", s.handleRoot).Methods("GET")
+	r.HandleFunc("/sizzles", s.handleSizzles).Methods("GET")
 
 	// register middleware
 	var handler http.Handler = r
@@ -51,5 +52,8 @@ func logRequestHandler(h http.Handler) http.Handler {
 
 // handleRoot handles the root path "/"
 func (s *server) handleRoot(w http.ResponseWriter, r *http.Request) {
-	templates.ExecuteTemplate(w, "home.html", s.pan.Sizzles)
+	templates.ExecuteTemplate(w, "home.html", nil)
+}
+func (s *server) handleSizzles(w http.ResponseWriter, r *http.Request) {
+	templates.ExecuteTemplate(w, "sizzles", s.pan.Sizzles)
 }
