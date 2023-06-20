@@ -9,6 +9,8 @@ import (
 	"github.com/journeybeforedestination/sizzle/pan"
 )
 
+var templates = template.Must(template.ParseFiles("tmpl/home.html", "tmpl/sizzles.html"))
+
 type server struct {
 	pan pan.Pan
 }
@@ -49,6 +51,5 @@ func logRequestHandler(h http.Handler) http.Handler {
 
 // handleRoot handles the root path "/"
 func (s *server) handleRoot(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("tmpl/home.html")
-	t.Execute(w, s.pan.Sizzles)
+	templates.ExecuteTemplate(w, "home.html", s.pan.Sizzles)
 }

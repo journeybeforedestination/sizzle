@@ -9,11 +9,7 @@
   <body>
     <main>
         <h1>What is cooking?</h1>  
-        <ul>
-          {{range .}}
-            <li>{{.}}</li>
-          {{end}}
-        </ul>
+        {{template "sizzles" .}}
     </main>
   </body>
 </html>
